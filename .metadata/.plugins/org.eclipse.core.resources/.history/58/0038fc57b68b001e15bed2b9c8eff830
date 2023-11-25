@@ -1,0 +1,41 @@
+package core;
+
+public class Stack implements IStack {
+
+    private Object[] elements;
+    private int size;
+    private static final int CAPACITY = 10; // ขนาดความจุเริ่มต้น
+
+    public Stack() {
+        this.elements = new Object[CAPACITY];
+        this.size = 0;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public void push(Object element) throws Exception {
+        if (size < CAPACITY) {
+            elements[size++] = element;
+        } else {
+            throw new Exception("Stack is full, cannot push more elements.");
+        }
+    }
+
+    @Override
+    public Object top() {
+        if (!isEmpty()) {
+            return elements[size - 1];
+        }
+        return null; // หรือค่าที่คุณต้องการที่จะแสดงว่า Stack ว่าง
+    }
+}
+

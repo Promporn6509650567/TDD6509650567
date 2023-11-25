@@ -1,0 +1,60 @@
+package core;
+
+import junit.framework.TestCase;
+
+public class StackTestCases extends TestCase {
+	
+	
+	//TC1
+    public void testCreateNewStack() {
+        IStack stack = new Stack();
+        assertEquals(0, stack.getSize());
+        assertTrue(stack.isEmpty());
+    }
+    
+    //TC2
+    public void testPushElementIntoStack() throws Exception {
+        IStack stack = new Stack();
+        stack.push(5);
+        assertEquals(1, stack.getSize());
+        assertFalse(stack.isEmpty());
+        assertEquals(5, stack.top());
+    }
+    
+    //TC3
+    public void testPushElementsOfDifferentTypes() throws Exception {
+        IStack stack = new Stack();
+         stack.push(5);
+         stack.push("Hello");
+    }
+    
+    //TC4
+    public void testLastInFirstOutProperty() throws Exception {
+        IStack stack = new Stack();
+        stack.push(3);
+        stack.push(7);
+        assertEquals(7, stack.top());
+        assertEquals(2, stack.getSize());
+        assertEquals(7, stack.top());
+        assertEquals(7, stack.top());
+        stack.push(1);
+        assertEquals(1, stack.top());
+        assertEquals(3, stack.getSize());
+    }
+    
+    //TC5
+    public void testStackCapacity() throws Exception {
+        IStack stack = new Stack();
+        for (int i = 0; i < 5; i++) {
+            stack.push(i);
+        }
+        assertEquals(5, stack.getSize());
+        try {
+            stack.push(10); // Attempt to push when stack is full
+            assertFalse("Expected exception not thrown", true);
+        } catch (Exception e) {
+            assertEquals("Stack is full, cannot push more elements.", e.getMessage());
+        }
+    }
+}
+

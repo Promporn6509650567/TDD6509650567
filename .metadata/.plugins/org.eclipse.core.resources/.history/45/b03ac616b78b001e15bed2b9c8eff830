@@ -1,0 +1,59 @@
+package core;
+
+import junit.framework.TestCase;
+
+public class StackTestCases extends TestCase {
+
+    public void testCreateNewStack() {
+        IStack stack = new Stack();
+        assertEquals(0, stack.getSize());
+        assertTrue(stack.isEmpty());
+    }
+
+    public void testPushElementIntoStack() throws Exception {
+        IStack stack = new Stack();
+        stack.push(5);
+        assertEquals(1, stack.getSize());
+        assertFalse(stack.isEmpty());
+        assertEquals(5, stack.top());
+    }
+
+    public void testPushElementsOfDifferentTypes() {
+        IStack stack = new Stack();
+        try {
+            stack.push(5);
+            stack.push("Hello");
+            assertFalse("Expected exception not thrown", true);
+        } catch (Exception e) {
+            assertEquals("All elements in the stack must be of the same type.", e.getMessage());
+        }
+    }
+
+    public void testLastInFirstOutProperty() throws Exception {
+        IStack stack = new Stack();
+        stack.push(3);
+        stack.push(7);
+        assertEquals(7, stack.top());
+        assertEquals(2, stack.getSize());
+        assertEquals(7, stack.top());
+        assertEquals(7, stack.top());
+        stack.push(1);
+        assertEquals(1, stack.top());
+        assertEquals(3, stack.getSize());
+    }
+
+    public void testStackCapacity() throws Exception {
+        IStack stack = new Stack();
+        for (int i = 0; i < 5; i++) {
+            stack.push(i);
+        }
+        assertEquals(5, stack.getSize());
+        try {
+            stack.push(10); // Attempt to push when stack is full
+            assertFalse("Expected exception not thrown", true);
+        } catch (Exception e) {
+            assertEquals("Stack is full, cannot push more elements.", e.getMessage());
+        }
+    }
+}
+
